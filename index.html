@@ -159,6 +159,24 @@
     overflow: hidden;
   }
 
+  .hero-photo{
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/me.jpg');
+    background-size: cover;
+    background-position: center 20%;
+    filter: grayscale(1) contrast(1.15) brightness(0.75);
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .hero-photo::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 55%, #000 100%);
+  }
+
+  .hero > .wrap, .hero-scroll{ position: relative; z-index: 1; }
+
   .hero-name{
     width: 100vw;
     margin-left: calc(-50vw + 50%);
@@ -437,6 +455,7 @@
 <div id="top">
 
   <section class="hero" data-section>
+    <div class="hero-photo" aria-hidden="true"></div>
     <div class="wrap">
       <h1 class="hero-name">
         <span class="line">PRABESH</span><br>
@@ -470,7 +489,7 @@
       <p class="eyebrow">About</p>
       <h2 class="big">Automation<br>over hand-holding</h2>
       <p>Most of what I build sits at the intersection of automation and AI tooling: Python pipelines that chain together generation, decision-making, and output with no one babysitting the middle steps.</p>
-      <p>Recent work includes a fully automated short-form video pipeline, a live cybersecurity-monitoring Telegram bot, and self-hosted AI agent platforms built on Dify and Flowise. I'd rather ship something narrow that actually runs unattended than something broad that needs constant hand-holding.</p>
+      <p>Recent work includes a fully automated short-form video pipeline, a live cybersecurity-monitoring Telegram bot, and a self-hosted AI agent platform built on Dify. I'd rather ship something narrow that actually runs unattended than something broad that needs constant hand-holding.</p>
     </div>
   </section>
 
@@ -484,7 +503,7 @@
 
       <div class="project-block reveal">
         <div>
-          <p class="project-index">01 / 04</p>
+          <p class="project-index">01 / 03</p>
           <span class="status live"><span class="status-dot"></span>Live</span>
           <h3 class="project-title">Sentinel</h3>
           <p class="project-desc">A Telegram bot for real-time cybersecurity monitoring, backed by a public status page that reports live operational state rather than just claiming uptime.</p>
@@ -501,7 +520,7 @@
 
       <div class="project-block reverse reveal">
         <div>
-          <p class="project-index">02 / 04</p>
+          <p class="project-index">02 / 03</p>
           <span class="status shipped">Shipped</span>
           <h3 class="project-title">Auto Video Pipeline</h3>
           <p class="project-desc">An end-to-end Python pipeline that picks a topic, writes a script, generates illustrated visuals, records a TTS voiceover, and renders styled subtitles — no manual editing step.</p>
@@ -514,7 +533,7 @@
 
       <div class="project-block reveal">
         <div>
-          <p class="project-index">03 / 04</p>
+          <p class="project-index">03 / 03</p>
           <span class="status shipped">Shipped</span>
           <h3 class="project-title">DifyLite</h3>
           <p class="project-desc">A lightweight, self-hosted clone of Dify — a FastAPI + SQLAlchemy backend behind a visual workflow builder, running with local LLM support through Ollama.</p>
@@ -522,19 +541,6 @@
         </div>
         <div class="media-frame" style="background-image:url('assets/difylite.jpg')">
           <div class="media-fallback">assets/difylite.jpg<br>drop a screenshot here</div>
-        </div>
-      </div>
-
-      <div class="project-block reverse reveal">
-        <div>
-          <p class="project-index">04 / 04</p>
-          <span class="status progress">In progress</span>
-          <h3 class="project-title">PrabeshFlow</h3>
-          <p class="project-desc">A customized fork of Flowise, the open-source AI agent builder, self-hosted through Docker for running agent workflows locally rather than on someone else's cloud.</p>
-          <p class="stack">Flowise · Docker · Node.js</p>
-        </div>
-        <div class="media-frame" style="background-image:url('assets/prabeshflow.jpg')">
-          <div class="media-fallback">assets/prabeshflow.jpg<br>drop a screenshot here</div>
         </div>
       </div>
 
