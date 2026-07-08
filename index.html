@@ -7,276 +7,346 @@
 <meta name="description" content="Prabesh Baskota — Automation Engineer. Python pipelines and self-hosted AI tooling.">
 <style>
   :root{
-    --bg: #f7f6f2;
-    --panel: #ffffff;
-    --ink: #1c1c1a;
-    --muted: #5c5b56;
-    --rule: #dcdad2;
-    --accent: #23433a;
-    --accent-soft: #eef1ed;
-    --live: #1f8a4c;
-    --live-soft: #e8f5ec;
-    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --bg: #0a0e13;
+    --bg-alt: #0e141b;
+    --panel: #131a22;
+    --panel-hover: #161e27;
+    --ink: #edf2f5;
+    --muted: #8b96a3;
+    --rule: rgba(255,255,255,0.09);
+    --accent: #2ee6a6;
+    --accent-2: #5eb8ff;
+    --accent-soft: rgba(46,230,166,0.12);
+    --warn: #f2b84b;
+    --warn-soft: rgba(242,184,75,0.12);
+    --mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
   }
 
   * { box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body{
     margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:var(--sans);
-    line-height:1.55;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
     overflow-x: hidden;
   }
 
-  .wrap{
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+  .wrap{ max-width: 920px; margin: 0 auto; padding: 0 28px; }
 
+  a { color: inherit; }
+
+  /* ---------- nav ---------- */
   header.top{
     border-bottom: 1px solid var(--rule);
-    background: rgba(247,246,242,0.88);
-    backdrop-filter: saturate(180%) blur(6px);
+    background: rgba(10,14,19,0.72);
+    backdrop-filter: saturate(180%) blur(10px);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 20;
   }
 
   .topbar{
-    max-width: 760px;
+    max-width: 920px;
     margin: 0 auto;
-    padding: 18px 24px;
+    padding: 18px 28px;
     display:flex;
     align-items:center;
     justify-content:space-between;
   }
 
   .brand{
-    font-family: var(--serif);
+    display:flex; align-items:center; gap:9px;
     font-weight: 700;
-    font-size: 1.05rem;
-    letter-spacing: 0.01em;
+    font-size: 1.02rem;
     text-decoration:none;
     color: var(--ink);
-    transition: letter-spacing .3s ease;
+    letter-spacing: -0.01em;
   }
 
-  .brand:hover{ letter-spacing: 0.03em; }
-
-  nav.links{
-    display:flex;
-    gap: 22px;
+  .brand .dot{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px 2px var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
   }
+
+  nav.links{ display:flex; gap: 28px; }
 
   nav.links a{
     position: relative;
     color: var(--muted);
     text-decoration:none;
-    font-size: 0.86rem;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    padding-bottom: 3px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    padding-bottom: 4px;
+    transition: color .2s ease;
   }
 
   nav.links a::after{
     content:"";
-    position:absolute;
-    left:0; bottom:0;
-    width:100%;
-    height:1px;
-    background: var(--accent);
+    position:absolute; left:0; bottom:0;
+    width:100%; height:1.5px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform .28s ease;
+    transition: transform .3s ease;
   }
 
   nav.links a:hover{ color: var(--ink); }
   nav.links a:hover::after{ transform: scaleX(1); transform-origin: left; }
 
+  /* ---------- hero ---------- */
   .hero{
-    padding: 76px 0 56px;
-    border-bottom: 1px solid var(--rule);
     position: relative;
+    padding: 120px 0 100px;
+    overflow: hidden;
   }
 
-  .hero::before{
-    content:"";
-    position:absolute;
-    top: -40px;
-    right: -120px;
-    width: 320px;
-    height: 320px;
-    background: radial-gradient(circle, rgba(35,67,58,0.10) 0%, rgba(35,67,58,0) 70%);
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .eyebrow{
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    margin: 0 0 14px;
-    display:flex;
-    align-items:center;
-    gap: 8px;
-  }
-
-  .eyebrow .dot{
-    width: 7px;
-    height: 7px;
+  .blob{
+    position: absolute;
     border-radius: 50%;
-    background: var(--live);
-    box-shadow: 0 0 0 rgba(31,138,76,0.5);
-    animation: pulse-dot 2.2s ease-in-out infinite;
+    filter: blur(70px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob-a{
+    width: 420px; height: 420px;
+    top: -140px; right: -80px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    animation: drift-a 14s ease-in-out infinite alternate;
+  }
+  .blob-b{
+    width: 380px; height: 380px;
+    bottom: -160px; left: -100px;
+    background: radial-gradient(circle, var(--accent-2) 0%, transparent 70%);
+    animation: drift-b 16s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift-a{
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(-40px, 40px) scale(1.15); }
+  }
+  @keyframes drift-b{
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(30px, -30px) scale(1.1); }
+  }
+
+  .hero-inner{ position: relative; z-index: 1; }
+
+  .terminal{
+    display:inline-flex;
+    align-items:center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid rgba(46,230,166,0.3);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin: 0 0 28px;
+  }
+
+  .terminal .dot{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .terminal .cursor{
+    display:inline-block;
+    width: 7px; height: 1em;
+    background: var(--accent);
+    margin-left: 2px;
+    animation: blink 1s steps(1) infinite;
+    vertical-align: text-bottom;
   }
 
   h1{
-    font-family: var(--serif);
-    font-size: 2.6rem;
-    line-height: 1.15;
-    margin: 0 0 10px;
-    font-weight: 700;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.05;
+    margin: 0 0 16px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(120deg, #ffffff 40%, var(--accent) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .role{
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     color: var(--muted);
-    margin: 0 0 26px;
+    margin: 0 0 28px;
+    font-family: var(--mono);
   }
 
   .tagline{
-    font-size: 1.02rem;
-    max-width: 56ch;
+    font-size: 1.08rem;
+    max-width: 58ch;
+    color: #c7cfd6;
+    margin: 0 0 36px;
+  }
+
+  .cta-row{ display:flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--mono);
+    font-size: 0.86rem;
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .25s ease, border-color .2s ease;
+  }
+
+  .btn-primary{
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    color: #06110d;
+    font-weight: 700;
+    box-shadow: 0 0 0 rgba(46,230,166,0);
+  }
+  .btn-primary:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(46,230,166,0.35);
+  }
+
+  .btn-ghost{
+    border: 1px solid var(--rule);
     color: var(--ink);
   }
+  .btn-ghost:hover{
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
 
-  .hero .eyebrow, .hero h1, .hero .role, .hero .tagline{
+  .hero .terminal, .hero h1, .hero .role, .hero .tagline, .hero .cta-row{
     opacity: 0;
-    transform: translateY(14px);
-    animation: rise .7s ease forwards;
+    transform: translateY(20px);
+    animation: rise .8s ease forwards;
   }
-  .hero .eyebrow{ animation-delay: .05s; }
+  .hero .terminal{ animation-delay: .05s; }
   .hero h1{ animation-delay: .15s; }
-  .hero .role{ animation-delay: .25s; }
-  .hero .tagline{ animation-delay: .35s; }
+  .hero .role{ animation-delay: .28s; }
+  .hero .tagline{ animation-delay: .4s; }
+  .hero .cta-row{ animation-delay: .52s; }
 
-  section{
-    padding: 56px 0;
-    border-bottom: 1px solid var(--rule);
+  /* ---------- sections ---------- */
+  section{ padding: 84px 0; }
+  section.alt{ background: var(--bg-alt); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+
+  .eyebrow-label{
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin: 0 0 10px;
   }
-
-  section:last-of-type{ border-bottom: none; }
 
   h2{
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    margin: 0 0 22px;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin: 0 0 36px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
+  .about p{
+    font-size: 1.06rem;
+    color: #c7cfd6;
+    max-width: 66ch;
+    margin: 0 0 18px;
+  }
+
+  /* ---------- work grid ---------- */
   .group-label{
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     color: var(--muted);
-    margin: 34px 0 14px;
+    margin: 0 0 18px;
   }
 
-  .group-label:first-of-type{ margin-top: 0; }
+  .project-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 44px;
+  }
 
   .project{
-    padding: 18px 16px;
-    margin: 0 -16px;
-    border-top: 1px solid var(--rule);
-    border-radius: 6px;
-    transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 24px;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background .3s ease;
+    overflow: hidden;
   }
 
-  .project:first-of-type{ border-top: none; }
+  .project::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+  }
 
   .project:hover{
-    background: var(--panel);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(28,28,26,0.06);
+    transform: translateY(-5px);
+    border-color: rgba(46,230,166,0.35);
+    background: var(--panel-hover);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
   }
+
+  .project:hover::before{ transform: scaleX(1); }
 
   .project-head{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap: 16px;
-    flex-wrap: wrap;
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap: 12px; margin-bottom: 10px;
   }
 
-  .project-title{
-    font-weight: 600;
-    font-size: 1.02rem;
-  }
+  .project-title{ font-weight: 700; font-size: 1.06rem; letter-spacing: -0.01em; }
 
   .status{
-    display:inline-flex;
-    align-items:center;
-    gap: 5px;
+    display:inline-flex; align-items:center; gap:6px;
     font-family: var(--mono);
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 3px 8px;
-    border-radius: 3px;
+    letter-spacing: 0.06em;
+    padding: 4px 9px;
+    border-radius: 100px;
     white-space: nowrap;
   }
 
-  .status.shipped{
-    color: var(--accent);
-    background: var(--accent-soft);
-  }
-
-  .status.live{
-    color: var(--live);
-    background: var(--live-soft);
-  }
+  .status.live{ color: var(--accent); background: var(--accent-soft); }
+  .status.shipped{ color: var(--accent-2); background: rgba(94,184,255,0.12); }
+  .status.progress{ color: var(--warn); background: var(--warn-soft); }
 
   .status .status-dot{
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
+    width: 5px; height: 5px; border-radius: 50%;
     background: currentColor;
-    animation: pulse-dot 2.2s ease-in-out infinite;
+    animation: pulse-dot 2s ease-in-out infinite;
   }
 
-  .status.progress{
-    color: #7a5c1e;
-    background: #f6efdf;
-  }
-
-  .project-desc{
-    color: var(--muted);
-    margin: 8px 0 10px;
-    font-size: 0.96rem;
-  }
+  .project-desc{ color: var(--muted); font-size: 0.95rem; margin: 0 0 12px; }
 
   .stack{
     font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--muted);
+    font-size: 0.76rem;
+    color: #6f7a87;
   }
 
-  .project-links{
-    margin-top: 8px;
-    display:flex;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
+  .project-links{ margin-top: 14px; display:flex; gap: 16px; flex-wrap: wrap; }
 
   .project-links a{
     font-family: var(--mono);
@@ -284,81 +354,54 @@
     color: var(--accent);
     text-decoration: none;
     border-bottom: 1px solid transparent;
-    transition: border-color .2s ease, opacity .2s ease;
+    transition: border-color .2s ease;
   }
+  .project-links a:hover{ border-color: var(--accent); }
 
-  .project-links a:hover{
-    border-color: var(--accent);
-  }
-
-  .skills{
-    display:flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  /* ---------- skills ---------- */
+  .skills{ display:flex; flex-wrap: wrap; gap: 10px; }
 
   .skill{
     font-family: var(--mono);
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     border: 1px solid var(--rule);
-    padding: 5px 11px;
-    border-radius: 3px;
+    background: var(--panel);
+    padding: 8px 14px;
+    border-radius: 100px;
     color: var(--ink);
-    transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
   }
 
   .skill:hover{
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: var(--accent);
-    background: var(--accent-soft);
+    box-shadow: 0 8px 20px rgba(46,230,166,0.15);
   }
 
-  .about p{
-    font-size: 1.02rem;
-    max-width: 62ch;
-  }
+  /* ---------- contact ---------- */
+  .contact{ text-align: center; }
+  .contact h2{ margin-bottom: 16px; }
+  .contact p.sub{ color: var(--muted); margin: 0 0 32px; }
 
-  .contact p{ font-size: 1.02rem; }
+  .contact .btn-primary{ font-size: 0.95rem; padding: 16px 34px; }
 
-  .contact a{
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid var(--accent);
-    transition: opacity .2s ease;
-  }
+  footer{ padding: 36px 0 64px; text-align:center; }
+  footer p{ font-family: var(--mono); font-size: 0.76rem; color: var(--muted); margin: 0; }
 
-  .contact a:hover{ opacity: 0.65; }
-
-  footer{
-    padding: 30px 0 60px;
-  }
-
-  footer p{
-    font-family: var(--mono);
-    font-size: 0.76rem;
-    color: var(--muted);
-    margin: 0;
-  }
-
-  /* scroll-reveal */
+  /* ---------- reveal ---------- */
   .reveal{
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity .6s ease, transform .6s ease;
+    transform: translateY(26px) scale(0.98);
+    transition: opacity .7s ease, transform .7s ease;
   }
-  .reveal.visible{
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible{ opacity: 1; transform: translateY(0) scale(1); }
 
-  @keyframes rise{
-    to{ opacity: 1; transform: translateY(0); }
-  }
-
+  @keyframes rise{ to{ opacity: 1; transform: translateY(0); } }
+  @keyframes blink{ 50%{ opacity: 0; } }
   @keyframes pulse-dot{
-    0%   { box-shadow: 0 0 0 0 rgba(31,138,76,0.45); }
-    70%  { box-shadow: 0 0 0 6px rgba(31,138,76,0); }
-    100% { box-shadow: 0 0 0 0 rgba(31,138,76,0); }
+    0%   { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+    70%  { box-shadow: 0 0 0 6px transparent; opacity: 0.7; }
+    100% { box-shadow: 0 0 0 0 transparent; opacity: 1; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -368,18 +411,17 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
-    .hero .eyebrow, .hero h1, .hero .role, .hero .tagline, .reveal{
-      opacity: 1 !important;
-      transform: none !important;
+    .hero .terminal, .hero h1, .hero .role, .hero .tagline, .hero .cta-row, .reveal{
+      opacity: 1 !important; transform: none !important;
     }
   }
 
-  @media (max-width: 560px){
-    h1{ font-size: 2.1rem; }
+  @media (max-width: 640px){
+    .hero{ padding: 90px 0 64px; }
     .topbar{ padding: 14px 20px; }
-    nav.links{ gap: 14px; }
-    .hero{ padding: 52px 0 40px; }
-    .hero::before{ display:none; }
+    nav.links{ gap: 16px; }
+    section{ padding: 60px 0; }
+    .blob{ display:none; }
   }
 </style>
 </head>
@@ -387,99 +429,123 @@
 
 <header class="top">
   <div class="topbar">
-    <a class="brand" href="#top">Prabesh Baskota</a>
+    <a class="brand" href="#top"><span class="dot"></span>Prabesh Baskota</a>
     <nav class="links">
-      <a href="#work">Work</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+      <a href="#work">work</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
     </nav>
   </div>
 </header>
 
-<div class="wrap" id="top">
+<div id="top">
 
   <section class="hero">
-    <p class="eyebrow"><span class="dot"></span>Automation Engineer</p>
-    <h1>Prabesh Baskota</h1>
-    <p class="role">Python pipelines &amp; self-hosted AI tooling</p>
-    <p class="tagline">I build systems that take a rough idea and run it end to end with minimal manual work — from automated content pipelines to self-hosted AI agent platforms.</p>
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="wrap hero-inner">
+      <p class="terminal"><span class="dot"></span>status: automation_engineer --online<span class="cursor"></span></p>
+      <h1>Prabesh Baskota</h1>
+      <p class="role">// Python pipelines &amp; self-hosted AI tooling</p>
+      <p class="tagline">I build systems that take a rough idea and run it end to end with minimal manual work — from automated content pipelines to self-hosted AI agent platforms.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#work">View work →</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
   </section>
 
-  <section class="about reveal" id="about">
-    <h2>About</h2>
-    <p>Most of what I build sits at the intersection of automation and AI tooling: Python pipelines that chain together generation, decision-making, and output with no one babysitting the middle steps. Recent work includes a fully automated short-form video pipeline, a live cybersecurity-monitoring Telegram bot, and two self-hosted AI agent platforms built on Flowise and Dify.</p>
-    <p>I'd rather ship something narrow that actually runs unattended than something broad that needs constant hand-holding.</p>
+  <section class="about" id="about">
+    <div class="wrap reveal">
+      <p class="eyebrow-label">About</p>
+      <h2>Automation over hand-holding</h2>
+      <p>Most of what I build sits at the intersection of automation and AI tooling: Python pipelines that chain together generation, decision-making, and output with no one babysitting the middle steps. Recent work includes a fully automated short-form video pipeline, a live cybersecurity-monitoring Telegram bot, and self-hosted AI agent platforms built on Dify and Flowise.</p>
+      <p>I'd rather ship something narrow that actually runs unattended than something broad that needs constant hand-holding.</p>
+    </div>
   </section>
 
-  <section id="work">
-    <h2 class="reveal">Work</h2>
+  <section class="alt" id="work">
+    <div class="wrap">
+      <p class="eyebrow-label reveal">Work</p>
+      <h2 class="reveal">What I've shipped</h2>
 
-    <p class="group-label reveal">Shipped</p>
+      <p class="group-label reveal">Shipped</p>
+      <div class="project-grid">
 
-    <div class="project reveal">
-      <div class="project-head">
-        <span class="project-title">Sentinel</span>
-        <span class="status live"><span class="status-dot"></span>Live</span>
+        <div class="project reveal">
+          <div class="project-head">
+            <span class="project-title">Sentinel</span>
+            <span class="status live"><span class="status-dot"></span>Live</span>
+          </div>
+          <p class="project-desc">A Telegram bot for real-time cybersecurity monitoring, backed by a public status page that reports live operational state rather than just claiming uptime.</p>
+          <p class="stack">Telegram Bot API · status monitoring · Vercel</p>
+          <p class="project-links">
+            <a href="https://t.me/sentineel_cyber_bot" target="_blank" rel="noopener">Open in Telegram →</a>
+            <a href="https://sentinel-bot-tau.vercel.app/" target="_blank" rel="noopener">Status page →</a>
+          </p>
+        </div>
+
+        <div class="project reveal">
+          <div class="project-head">
+            <span class="project-title">Automated Short-Form Video Pipeline</span>
+            <span class="status shipped">Shipped</span>
+          </div>
+          <p class="project-desc">An end-to-end Python pipeline that picks a topic, writes a script, generates illustrated visuals, records a TTS voiceover, and renders styled subtitles — no manual editing step. Tuned for a comedic, high-engagement tone, and passed a full compile + logic verification suite before going live.</p>
+          <p class="stack">Python · Gemini API · TTS · image generation · subtitle rendering</p>
+        </div>
+
+        <div class="project reveal">
+          <div class="project-head">
+            <span class="project-title">DifyLite</span>
+            <span class="status shipped">Shipped</span>
+          </div>
+          <p class="project-desc">A lightweight, self-hosted clone of Dify — a FastAPI + SQLAlchemy backend behind a visual workflow builder, running with local LLM support through Ollama so it works entirely offline.</p>
+          <p class="stack">Python · FastAPI · SQLAlchemy · Ollama</p>
+        </div>
+
       </div>
-      <p class="project-desc">A Telegram bot for real-time cybersecurity monitoring, backed by a public status page that reports live operational state rather than just claiming uptime.</p>
-      <p class="stack">Telegram Bot API · status monitoring · Vercel</p>
-      <p class="project-links">
-        <a href="https://t.me/sentineel_cyber_bot" target="_blank" rel="noopener">Open in Telegram →</a>
-        <a href="https://sentinel-bot-tau.vercel.app/" target="_blank" rel="noopener">Status page →</a>
-      </p>
-    </div>
 
-    <div class="project reveal">
-      <div class="project-head">
-        <span class="project-title">Automated Short-Form Video Pipeline</span>
-        <span class="status shipped">Shipped</span>
+      <p class="group-label reveal">In progress</p>
+      <div class="project-grid">
+        <div class="project reveal">
+          <div class="project-head">
+            <span class="project-title">PrabeshFlow</span>
+            <span class="status progress">In progress</span>
+          </div>
+          <p class="project-desc">A customized fork of Flowise, the open-source AI agent builder, self-hosted through Docker for running agent workflows locally rather than on someone else's cloud.</p>
+          <p class="stack">Flowise · Docker · Node.js</p>
+        </div>
       </div>
-      <p class="project-desc">An end-to-end Python pipeline that picks a topic, writes a script, generates illustrated visuals, records a TTS voiceover, and renders styled subtitles — with no manual editing step. Tuned for a comedic, high-engagement tone with a pop-art visual style, and passed a full compile + logic verification suite before going live.</p>
-      <p class="stack">Python · Gemini API · TTS · image generation · subtitle rendering</p>
     </div>
-
-    <p class="group-label reveal">In progress</p>
-
-    <div class="project reveal">
-      <div class="project-head">
-        <span class="project-title">DifyLite</span>
-        <span class="status progress">In progress</span>
-      </div>
-      <p class="project-desc">A lightweight, self-hosted clone of Dify — a FastAPI + SQLAlchemy backend behind a visual workflow builder, with local LLM support through Ollama so it can run entirely offline.</p>
-      <p class="stack">Python · FastAPI · SQLAlchemy · Ollama</p>
-    </div>
-
-    <div class="project reveal">
-      <div class="project-head">
-        <span class="project-title">PrabeshFlow</span>
-        <span class="status progress">In progress</span>
-      </div>
-      <p class="project-desc">A customized fork of Flowise, the open-source AI agent builder, self-hosted through Docker for running agent workflows locally rather than on someone else's cloud.</p>
-      <p class="stack">Flowise · Docker · Node.js</p>
-    </div>
-
   </section>
 
   <section id="skills">
-    <h2 class="reveal">Skills</h2>
-    <div class="skills reveal">
-      <span class="skill">Python</span>
-      <span class="skill">FastAPI</span>
-      <span class="skill">SQLAlchemy</span>
-      <span class="skill">Docker</span>
-      <span class="skill">Gemini API</span>
-      <span class="skill">Telegram Bot API</span>
-      <span class="skill">Ollama / local LLMs</span>
-      <span class="skill">Self-hosted AI infrastructure</span>
-      <span class="skill">Automation pipelines</span>
-      <span class="skill">Firebase</span>
-      <span class="skill">Windows / PowerShell tooling</span>
+    <div class="wrap reveal">
+      <p class="eyebrow-label">Skills</p>
+      <h2>Toolbox</h2>
+      <div class="skills">
+        <span class="skill">Python</span>
+        <span class="skill">FastAPI</span>
+        <span class="skill">SQLAlchemy</span>
+        <span class="skill">Docker</span>
+        <span class="skill">Gemini API</span>
+        <span class="skill">Telegram Bot API</span>
+        <span class="skill">Ollama / local LLMs</span>
+        <span class="skill">Self-hosted AI infrastructure</span>
+        <span class="skill">Automation pipelines</span>
+        <span class="skill">Firebase</span>
+        <span class="skill">Windows / PowerShell tooling</span>
+      </div>
     </div>
   </section>
 
-  <section class="contact reveal" id="contact">
-    <h2>Contact</h2>
-    <p>Best way to reach me is email: <a href="mailto:prabeshbaskota8@gmail.com">prabeshbaskota8@gmail.com</a></p>
+  <section class="alt contact" id="contact">
+    <div class="wrap reveal">
+      <p class="eyebrow-label">Contact</p>
+      <h2>Let's talk</h2>
+      <p class="sub">Best way to reach me is email.</p>
+      <a class="btn btn-primary" href="mailto:prabeshbaskota8@gmail.com">prabeshbaskota8@gmail.com</a>
+    </div>
   </section>
 
   <footer>
@@ -498,11 +564,11 @@
       entries.forEach(function(entry, i){
         if (entry.isIntersecting) {
           var el = entry.target;
-          setTimeout(function(){ el.classList.add('visible'); }, i * 60);
+          setTimeout(function(){ el.classList.add('visible'); }, i * 70);
           io.unobserve(el);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   })();
 </script>
