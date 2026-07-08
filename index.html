@@ -422,6 +422,16 @@
     width:100%; height:100%; object-fit: cover; display:block; border:0;
   }
 
+  .media-frame svg.arch-svg{ width:100%; height:100%; display:block; }
+
+  .diagram-tag{
+    position:absolute; top:14px; left:14px; z-index:2;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing:0.08em;
+    text-transform:uppercase; color: var(--muted);
+    background: rgba(0,0,0,0.55); border: 1px solid var(--rule);
+    padding: 4px 10px; border-radius: 100px;
+  }
+
   .media-frame .media-fallback{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
@@ -647,8 +657,54 @@
           <p class="project-desc">An end-to-end Python pipeline that picks a topic, writes a script, generates illustrated visuals, records a TTS voiceover, and renders styled subtitles — no manual editing step.</p>
           <p class="stack">Python · Gemini API · TTS · image generation</p>
         </div>
-        <div class="media-frame" style="background-image:url('assets/video-pipeline.jpg')">
-          <div class="media-fallback">assets/video-pipeline.jpg<br>drop a clip or thumbnail here</div>
+        <div class="media-frame">
+          <span class="diagram-tag">Pipeline diagram</span>
+          <svg class="arch-svg" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Automated video pipeline flow: topic to script to visuals to voiceover to subtitles to rendered video">
+            <style>
+              .arch-box{ fill:#0c0c0c; stroke:var(--rule); stroke-width:1.5; }
+              .arch-box.accent{ stroke:var(--accent); }
+              .arch-label{ font-family:var(--mono); font-size:13px; fill:var(--ink); text-anchor:middle; letter-spacing:0.04em; }
+              .arch-sub{ font-family:var(--mono); font-size:9.5px; fill:var(--muted); text-anchor:middle; }
+              .arch-line{ stroke:var(--accent); stroke-width:1.5; }
+            </style>
+            <rect x="140" y="16" width="200" height="38" rx="8" class="arch-box accent"/>
+            <text x="240" y="40" class="arch-label">TOPIC</text>
+
+            <line x1="240" y1="54" x2="240" y2="70" class="arch-line"/>
+            <polygon points="240,70 235,60 245,60" fill="var(--accent)"/>
+
+            <rect x="140" y="74" width="200" height="38" rx="8" class="arch-box"/>
+            <text x="240" y="94" class="arch-label">SCRIPT</text>
+            <text x="240" y="106" class="arch-sub">Gemini API</text>
+
+            <line x1="240" y1="112" x2="240" y2="128" class="arch-line"/>
+            <polygon points="240,128 235,118 245,118" fill="var(--accent)"/>
+
+            <rect x="140" y="132" width="200" height="38" rx="8" class="arch-box"/>
+            <text x="240" y="152" class="arch-label">VISUALS</text>
+            <text x="240" y="164" class="arch-sub">image generation</text>
+
+            <line x1="240" y1="170" x2="240" y2="186" class="arch-line"/>
+            <polygon points="240,186 235,176 245,176" fill="var(--accent)"/>
+
+            <rect x="140" y="190" width="200" height="38" rx="8" class="arch-box"/>
+            <text x="240" y="210" class="arch-label">VOICEOVER</text>
+            <text x="240" y="222" class="arch-sub">TTS narration</text>
+
+            <line x1="240" y1="228" x2="240" y2="244" class="arch-line"/>
+            <polygon points="240,244 235,234 245,234" fill="var(--accent)"/>
+
+            <rect x="140" y="248" width="200" height="38" rx="8" class="arch-box"/>
+            <text x="240" y="268" class="arch-label">SUBTITLES</text>
+            <text x="240" y="280" class="arch-sub">styled captions</text>
+
+            <line x1="240" y1="286" x2="240" y2="302" class="arch-line"/>
+            <polygon points="240,302 235,292 245,292" fill="var(--accent)"/>
+
+            <rect x="140" y="306" width="200" height="38" rx="8" class="arch-box accent"/>
+            <text x="240" y="326" class="arch-label">RENDERED VIDEO</text>
+            <text x="240" y="338" class="arch-sub">no manual editing step</text>
+          </svg>
         </div>
       </div>
 
@@ -660,8 +716,56 @@
           <p class="project-desc">A lightweight, self-hosted clone of Dify — a FastAPI + SQLAlchemy backend behind a visual workflow builder, running with local LLM support through Ollama.</p>
           <p class="stack">Python · FastAPI · SQLAlchemy · Ollama</p>
         </div>
-        <div class="media-frame" style="background-image:url('assets/difylite.jpg')">
-          <div class="media-fallback">assets/difylite.jpg<br>drop a screenshot here</div>
+        <div class="media-frame">
+          <span class="diagram-tag">Architecture diagram</span>
+          <svg class="arch-svg" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="DifyLite architecture: browser to FastAPI backend, splitting into SQLAlchemy to database and Ollama to local model">
+            <style>
+              .arch-box{ fill:#0c0c0c; stroke:var(--rule); stroke-width:1.5; }
+              .arch-box.accent{ stroke:var(--accent); }
+              .arch-label{ font-family:var(--mono); font-size:13px; fill:var(--ink); text-anchor:middle; letter-spacing:0.04em; }
+              .arch-sub{ font-family:var(--mono); font-size:9.5px; fill:var(--muted); text-anchor:middle; }
+              .arch-line{ stroke:var(--accent); stroke-width:1.5; }
+            </style>
+            <rect x="165" y="24" width="150" height="46" rx="8" class="arch-box accent"/>
+            <text x="240" y="45" class="arch-label">BROWSER</text>
+            <text x="240" y="60" class="arch-sub">workflow builder UI</text>
+
+            <line x1="240" y1="70" x2="240" y2="108" class="arch-line"/>
+            <polygon points="240,108 235,98 245,98" fill="var(--accent)"/>
+
+            <rect x="165" y="110" width="150" height="46" rx="8" class="arch-box accent"/>
+            <text x="240" y="131" class="arch-label">FASTAPI</text>
+            <text x="240" y="146" class="arch-sub">backend / REST API</text>
+
+            <line x1="240" y1="156" x2="240" y2="180" class="arch-line"/>
+            <line x1="240" y1="180" x2="120" y2="180" class="arch-line"/>
+            <line x1="240" y1="180" x2="360" y2="180" class="arch-line"/>
+            <line x1="120" y1="180" x2="120" y2="200" class="arch-line"/>
+            <line x1="360" y1="180" x2="360" y2="200" class="arch-line"/>
+            <polygon points="120,200 115,190 125,190" fill="var(--accent)"/>
+            <polygon points="360,200 355,190 365,190" fill="var(--accent)"/>
+
+            <rect x="45" y="202" width="150" height="46" rx="8" class="arch-box"/>
+            <text x="120" y="223" class="arch-label">SQLALCHEMY</text>
+            <text x="120" y="238" class="arch-sub">ORM layer</text>
+
+            <rect x="285" y="202" width="150" height="46" rx="8" class="arch-box"/>
+            <text x="360" y="223" class="arch-label">OLLAMA</text>
+            <text x="360" y="238" class="arch-sub">local LLM runtime</text>
+
+            <line x1="120" y1="248" x2="120" y2="272" class="arch-line"/>
+            <line x1="360" y1="248" x2="360" y2="272" class="arch-line"/>
+            <polygon points="120,272 115,262 125,262" fill="var(--accent)"/>
+            <polygon points="360,272 355,262 365,262" fill="var(--accent)"/>
+
+            <rect x="45" y="274" width="150" height="46" rx="8" class="arch-box"/>
+            <text x="120" y="295" class="arch-label">DATABASE</text>
+            <text x="120" y="310" class="arch-sub">workflow / run state</text>
+
+            <rect x="285" y="274" width="150" height="46" rx="8" class="arch-box"/>
+            <text x="360" y="295" class="arch-label">LOCAL MODEL</text>
+            <text x="360" y="310" class="arch-sub">offline inference</text>
+          </svg>
         </div>
       </div>
 
