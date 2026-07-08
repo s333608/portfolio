@@ -352,8 +352,8 @@
   }
   .project-block:hover .media-frame{ transform: scale(1.02); }
 
-  .media-frame img, .media-frame video{
-    width:100%; height:100%; object-fit: cover; display:block;
+  .media-frame img, .media-frame video, .media-frame iframe{
+    width:100%; height:100%; object-fit: cover; display:block; border:0;
   }
 
   .media-frame .media-fallback{
@@ -513,8 +513,8 @@
             <a href="https://sentinel-bot-tau.vercel.app/" target="_blank" rel="noopener">Status page →</a>
           </p>
         </div>
-        <div class="media-frame" style="background-image:url('assets/sentinel.jpg')">
-          <div class="media-fallback">assets/sentinel.jpg<br>drop a screenshot here</div>
+        <div class="media-frame">
+          <iframe src="https://sentinel-bot-tau.vercel.app/" title="Sentinel live status page" loading="lazy" style="pointer-events:none;"></iframe>
         </div>
       </div>
 
